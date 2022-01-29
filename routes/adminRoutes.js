@@ -7,6 +7,8 @@ const {
     loginCheckController,
     logoutController,
     pdoaOnboardController,
+    managePdoaController,
+    pdoDevicesController,
 } = require("../controller/adminController");
 const installChecker = require("../middleware/installChecker");
 const privateAuth = require("../middleware/privateAuth");
@@ -19,6 +21,8 @@ const adminRoutes = express.Router();
 /* ------------------------------ private auth ------------------------------ */
 adminRoutes.get("/", privateAuth, homeController);
 adminRoutes.get("/pdoa-onboard", privateAuth, pdoaOnboardController);
+adminRoutes.get("/manage-pdoa", privateAuth, managePdoaController);
+adminRoutes.get("/pdo-devices", privateAuth, pdoDevicesController);
 
 /* ------------------------------- public auth ------------------------------ */
 adminRoutes.get("/installer", publicAuth, installChecker, instController);

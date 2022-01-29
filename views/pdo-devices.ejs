@@ -1,0 +1,123 @@
+<%- include('inc/_header') -%>
+<%- include('inc/_nav') -%>
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0">PDO Sessions</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Services</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">PDO</a></li>
+                                <li class="breadcrumb-item active"><a href="javascript: void(0);">PDO Sessions</a></li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card px-4 pb-4" style="overflow-x: scroll;">
+                        <div class="card-header mb-5">
+                            <h4 class="card-title mb-0">PDOA List</h4>
+                        </div><!-- end card header -->
+                        <!-- <div class="card-body">
+                            <div id="table-pdoa"></div>
+                        </div> -->
+                        <table id="pdo-devices-table" class="display" style="width:2500px">
+                            <thead>
+                                <tr>
+                                    <th>Port</th>
+                                    <th>Status</th>
+                                    <th>Offline for</th>
+                                    <th>Hostname</th>
+                                    <th>Model or Comment</th>
+                                    <th>Device MAC</th>
+                                    <th>FW build date</th>
+                                    <th>Web</th>
+                                    <th>SSID</th>
+                                    <th>SSID2</th>
+                                    <th>Uptime</th>
+                                    <th>Users</th>
+                                    <th>Data</th>
+                                    <th>Tag</th>
+                                    <th>Actin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pdo-data">
+                                <% pdo.forEach(element => {%>
+                                <% const data = Object.entries(element[1]); %>
+                                <tr>
+                                    <td><%= data[0][1] %></td>
+                                    <% if(data[1][1] == 'online'){ %>
+                                        <td style="text-transform: capitalize;color: green;"><%= data[1][1] %></td></td>
+                                    <% }else{ %>
+                                        <td style="text-transform: capitalize;color: red;"><%= data[1][1] %></td></td>
+                                    <% } %>
+                                    <td><%= data[2][1] %></td>
+                                    <td><%= data[3][1] %></td>
+                                    <td><%= data[4][1] %></td>
+                                    <td><%= data[5][1] %></td>
+                                    <td><%= data[6][1] %></td>
+                                    <td><%= data[7][1] %></td>
+                                    <td><%= data[8][1] %></td>
+                                    <td><%= data[9][1] %></td>
+                                    <td><%= data[10][1] %></td>
+                                    <td><%= data[11][1] %></td>
+                                    <td><%= data[12][1] %></td>
+                                    <td><%= data[13][1] %></td>
+                                    <td><a href="#" class="btn btn-danger">Delete</a> <a href="#" class="btn btn-success">Edit</a></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <script>
+        const pdoData = document.getElementById('pdo-data')
+
+        // setInterval(() => {
+
+        //     fetch("https://pulse.simplifon.in/monitor/inst/index.php").then(res => res.json()).then((data) => {
+        //     Object.entries(data).map((item) => {
+        //         const arr = Object.entries(item[1]);
+        //         console.log(arr);
+        //         const tr = `<tr>
+        //                     <td>${arr[0][1]}</td>
+        //                     <td>${arr[1][1]}</td>
+        //                     <td>${arr[2][1]}</td>
+        //                     <td>${arr[3][1]}</td>
+        //                     <td>${arr[4][1]}</td>
+        //                 </tr>`;
+        //         pdoData.insertAdjacentHTML('beforeend', tr);
+        //         })
+
+        //     })
+        // })
+
+        $(function () {
+            $('#pdo-devices-table').DataTable();
+        })
+    </script>
+    <%- include('inc/_footer') -%>

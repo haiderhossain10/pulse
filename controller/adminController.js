@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const PeopleMode = require("../model/PeopleMode");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
 /* ------------------------------ client routes ----------------------------- */
 const homeController = (req, res) => {
@@ -10,6 +11,21 @@ const homeController = (req, res) => {
 
 const pdoaOnboardController = (req, res) => {
     res.render("pdoa-onboard", { title: "PDOA Onboard" });
+};
+
+const managePdoaController = (req, res) => {
+    res.render("manage-pdoa", { title: "PDOA List" });
+};
+
+const pdoDevicesController = async (req, res) => {
+    const response = await axios.get(
+        "https://pulse.simplifon.in/monitor/inst/index.php"
+    );
+    const obj = Object.entries(response.data);
+    res.render("pdo-devices", {
+        title: "PDO Devices",
+        pdo: obj,
+    });
 };
 
 /* ------------------------------- login route ------------------------------ */
@@ -108,6 +124,8 @@ const instSubmit = async (req, res) => {
 module.exports = {
     homeController,
     pdoaOnboardController,
+    managePdoaController,
+    pdoDevicesController,
     loginController,
     loginCheckController,
     logoutController,
